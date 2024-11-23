@@ -42,8 +42,9 @@ The project utilizes real estate data from Bangalore to predict home prices base
 
 📈 Results
 
-- Achieved an accuracy of 85% with the best-performing model (replace XX with the actual result).
+- Achieved an accuracy of 85% with the best-performing model.
 - Identified top factors influencing home prices, including location, area, and number of bedrooms.
+- Output is Price(in Lakhs)
 
 💡 Insights
 
