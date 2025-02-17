@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 # Load the dataset
-df = pd.read_csv("bengaluru_house_prices.csv")  # Replace with your actual dataset
+df = pd.read_csv("banglore_data.csv")  # Replace with your actual dataset
 
 # Load the trained model
 model = pickle.load(open("banglore_home_prices_model.pickle", "rb"))
