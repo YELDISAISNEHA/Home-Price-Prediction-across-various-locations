@@ -12,7 +12,7 @@ The project utilizes real estate data from Bangalore to predict home prices base
 - Data Cleaning: Handle missing values, remove outliers, and process categorical data.
 - Exploratory Data Analysis: Identify key trends and insights affecting home prices in Bangalore.
 - Feature Engineering: Select relevant features for accurate predictions.
-- Machine Learning Models: Train and evaluate models such as Linear Regression, Random Forest, and Gradient Boosting.
+- Machine Learning Models: Train and evaluate models such as Linear Regression, Decision Trees, and Lasso.
 - Web Deployment: Integrate the model into a simple web application for user interaction.
 
 🔧 Technologies Used
