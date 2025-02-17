@@ -13,14 +13,14 @@ The project utilizes real estate data from Bangalore to predict home prices base
 - Exploratory Data Analysis: Identify key trends and insights affecting home prices in Bangalore.
 - Feature Engineering: Select relevant features for accurate predictions.
 - Machine Learning Models: Train and evaluate models such as Linear Regression, Random Forest, and Gradient Boosting.
-- Web Deployment: Integrate the model into a simple web application for user interaction (if applicable).
+- Web Deployment: Integrate the model into a simple web application for user interaction.
 
 🔧 Technologies Used
 
 - Programming Language: Python
 - Libraries: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn
 - Tools: Jupyter Notebook
-- Deployment: Flask/Streamlit (optional)
+- Deployment: Streamlit
 
 📊 Dataset
 
@@ -51,12 +51,6 @@ The project utilizes real estate data from Bangalore to predict home prices base
 - Prime locations in Bangalore have significantly higher prices.
 - Area (in square feet) is a key determinant of home prices.
 - Number of bedrooms also correlates with price, but location plays a more dominant role.
-
-🏗️ Future Improvements
-
-- Incorporate additional features such as proximity to amenities or public transport.
-- Improve model performance with advanced algorithms like XGBoost or Neural Networks.
-- Develop a fully functional web app for user-friendly interaction.
 
 🙌 Acknowledgments
 
