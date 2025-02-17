@@ -4,32 +4,43 @@ import json
 import numpy as np
 import pandas as pd
 
+# Load the dataset
+df = pd.read_csv("bengaluru_house_prices.csv")  # Replace with your actual dataset
+
+# Load the trained model
 model = pickle.load(open("banglore_home_prices_model.pickle", "rb"))
 
+# Load column names
 with open("columns.json", "r") as f:
-    data_columns = json.load(f)['data_columns']
+    data_columns = json.load(f)
 
+data_columns = data_columns['data_columns']
 location_columns = data_columns[3:]
 
-df = pd.read_csv("bengaluru_house_prices.csv")  
-
 st.title("Bangalore Home Price Prediction")
+
 st.header("Enter Home Details:")
 
+# Select location
 location = st.selectbox("Location", location_columns)
 
-filtered_df = df[df['location'] == location]
+# Filter data for the selected location
+location_data = df[df['location'] == location]
 
-if not filtered_df.empty:
-    min_sqft = filtered_df['total_sqft'].min()
-    min_bhk = filtered_df['bhk'].min()
-    min_bathrooms = filtered_df['bathrooms'].min()
+# Get minimum values for the selected location
+if not location_data.empty:
+    min_sqft = location_data['total_sqft'].min()
+    min_bhk = location_data['bhk'].min()
+    min_bathrooms = location_data['bathrooms'].min()
 else:
-    min_sqft, min_bhk, min_bathrooms = 300, 1, 1 
+    min_sqft = 300.0  # Default min value
+    min_bhk = 1
+    min_bathrooms = 1
 
-total_square_feet = st.number_input("Total Square Feet Area", min_value=float(min_sqft), step=0.1, value=float(min_sqft))  
-bhk_number = st.number_input("Number of Bedrooms (BHK)", min_value=int(min_bhk), step=1, value=int(min_bhk))
-number_of_bathrooms = st.number_input("Number of Bathrooms", min_value=int(min_bathrooms), step=1, value=int(min_bathrooms))
+# Input fields with dynamic min values
+total_square_feet = st.number_input("Total Square Feet Area", min_value=float(min_sqft), step=0.1)
+bhk_number = st.number_input("Number of Bedrooms (BHK)", min_value=int(min_bhk), step=1)
+number_of_bathrooms = st.number_input("Number of Bathrooms", min_value=int(min_bathrooms), step=1)
 
 if st.button("Predict"):
     input_data = np.zeros(len(data_columns))
