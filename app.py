@@ -26,7 +26,7 @@ st.header("Enter Home Details:")
 
 number_of_bathrooms = st.number_input("Number of Bathrooms", min_value=1, step=1)
 bhk_number = st.number_input("Number of Bedrooms (BHK)", min_value=1, step=1)
-total_square_feet = st.number_input("Total Square Feet Area", min_value=1.0, step=0.1)
+total_square_feet = st.number_input("Total Square Feet Area", min_value=300.0, step=0.1)
 
 location = st.selectbox("Location", location_columns)
 
