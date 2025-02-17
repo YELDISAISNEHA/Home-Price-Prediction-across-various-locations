@@ -32,10 +32,10 @@ if not location_data.empty:
     min_sqft = location_data['total_sqft'].min()
     min_bhk = location_data['bhk'].min()
     min_bathrooms = location_data['bathrooms'].min()
-else:
-    min_sqft = 300.0  # Default min value
-    min_bhk = 1
-    min_bathrooms = 1
+# else:
+#     min_sqft = 300.0  # Default min value
+#     min_bhk = 1
+#     min_bathrooms = 1
 
 # Input fields with dynamic min values
 total_square_feet = st.number_input("Total Square Feet Area", min_value=float(min_sqft), step=0.1)
