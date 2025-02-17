@@ -2,6 +2,6 @@ pandas
 matplotlib
 numpy
 scikit-learn
-pickle5
+pickle
 jsonlib-python3
 streamlit
