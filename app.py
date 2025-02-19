@@ -34,5 +34,18 @@ bath = st.number_input("Bathrooms", min_value=min_bath, value=min_bath, step=1)
 # Predict button
 if st.button("Predict Price"):
     input_data = pd.DataFrame([[total_sqft, bhk, bath]], columns=['total_sqft', 'bhk', 'bath'])
+    input_encoded = encoder.transform(input_data[['location']]).toarray()
+    
+    # Convert encoded location to DataFrame
+    encoded_df = pd.DataFrame(input_encoded, columns=encoder.get_feature_names_out(['location']))
+    
+    # Drop 'location' column and merge with encoded features
+    input_data = input_data.drop('location', axis=1)
+    input_data = pd.concat([input_data, encoded_df], axis=1)
+
+    # Ensure column order matches the training model
+    input_data = input_data.reindex(columns=model.feature_names_in_, fill_value=0)
+    
+    # Predict price
     predicted_price = model.predict(input_data)[0]
     st.success(f"Predicted Price: ₹{predicted_price:,.2f} lakhs")
