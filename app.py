@@ -6,7 +6,8 @@ import pickle
 # Load the trained model
 with open('banglore_home_prices_model.pickle', 'rb') as file:
     model = pickle.load(file)
-
+with open("columns.json", "r") as file:
+    expected_columns = json.load(file)
 # Load the dataset
 @st.cache_data
 def load_data():
@@ -34,17 +35,15 @@ bath = st.number_input("Bathrooms", min_value=min_bath, value=min_bath, step=1)
 # Predict button
 if st.button("Predict Price"):
     input_data = pd.DataFrame([[total_sqft, bhk, bath]], columns=['total_sqft', 'bhk', 'bath'])
-    input_encoded = encoder.transform(input_data[['location']]).toarray()
-    
-    # Convert encoded location to DataFrame
-    encoded_df = pd.DataFrame(input_encoded, columns=encoder.get_feature_names_out(['location']))
-    
-    # Drop 'location' column and merge with encoded features
-    input_data = input_data.drop('location', axis=1)
-    input_data = pd.concat([input_data, encoded_df], axis=1)
+    # One-Hot Encode Location Manually
+    for loc in df["location"].unique():
+        input_data[loc] = 1 if loc == location else 0
 
-    # Ensure column order matches the training model
-    input_data = input_data.reindex(columns=model.feature_names_in_, fill_value=0)
+    # Drop location column
+    input_data.drop("location", axis=1, inplace=True)
+
+    # Ensure input_data has same feature order as model training
+    input_data = input_data.reindex(columns=expected_columns, fill_value=0)
     
     # Predict price
     predicted_price = model.predict(input_data)[0]
