@@ -41,9 +41,9 @@ bath = st.number_input("Bathrooms", min_value=min_bath, value=min_bath, step=1)
 if st.button("Predict"):
     input_data = np.zeros(len(data_columns))
 
-    input_data[0] = total_square_feet
-    input_data[1] = bhk_number
-    input_data[2] = number_of_bathrooms
+    input_data[0] = total_sqft
+    input_data[1] = bhk
+    input_data[2] = bath
 
     if location in location_columns:
         loc_index = location_columns.index(location) + 3
