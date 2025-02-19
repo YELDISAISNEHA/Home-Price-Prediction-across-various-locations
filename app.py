@@ -7,7 +7,11 @@ import pickle
 with open('banglore_home_prices_model.pickle', 'rb') as file:
     model = pickle.load(file)
 with open("columns.json", "r") as file:
-    expected_columns = json.load(file)
+    data_columns = json.load(file)
+
+data_columns = data_columns['data_columns']
+location_columns = data_columns[3:]
+
 # Load the dataset
 @st.cache_data
 def load_data():
@@ -33,19 +37,21 @@ bhk = st.number_input("BHK", min_value=min_bhk, value=min_bhk, step=1)
 bath = st.number_input("Bathrooms", min_value=min_bath, value=min_bath, step=1)
 
 # Predict button
-if st.button("Predict Price"):
-    input_data = pd.DataFrame([[total_sqft, bhk, bath]], columns=['total_sqft', 'bhk', 'bath'])
-    # One-Hot Encode Location Manually
-    for loc in df["location"].unique():
-        input_data[loc] = 1 if loc == location else 0
+if st.button("Predict"):
+    input_data = np.zeros(len(data_columns))
 
-    # Drop location column
-    if "location" in input_data.columns:
-        input_data.drop("location", axis=1, inplace=True)
+    input_data[0] = total_square_feet
+    input_data[1] = bhk_number
+    input_data[2] = number_of_bathrooms
 
-    # Ensure input_data has same feature order as model training
-    input_data = input_data.reindex(columns=expected_columns, fill_value=0)
-    
-    # Predict price
-    predicted_price = model.predict(input_data)[0]
-    st.success(f"Predicted Price: ₹{predicted_price:,.2f} lakhs")
+    if location in location_columns:
+        loc_index = location_columns.index(location) + 3
+        input_data[loc_index] = 1
+    else:
+        st.error("Location not found. Please select a valid location.")
+
+    try:
+        predicted_price = model.predict([input_data])[0]
+        st.success(f"The predicted price of the house is: ₹ {predicted_price:,.2f}")
+    except Exception as e:
+        st.error(f"Error during prediction: {e}")
