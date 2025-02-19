@@ -48,12 +48,11 @@ if st.button("Predict"):
     if location in location_columns:
         loc_index = location_columns.index(location) + 3
         input_data[loc_index] = 1
-        try:
-            predicted_price = model.predict([input_data])[0]
-            st.success(f"The predicted price of the house is: ₹ {predicted_price:,.2f} Lakhs")
-        except Exception as e:
-            st.error(f"Error during prediction: {e}")
-    else:
-        st.error("Location not found. Please select a valid location.")
-
+    # else:
+    #     st.error("Location not found. Please select a valid location.")
+    try:
+        predicted_price = model.predict([input_data])[0]
+        st.success(f"The predicted price of the house is: ₹ {predicted_price:,.2f} Lakhs")
+    except Exception as e:
+        st.error(f"Error during prediction: {e}")
     
