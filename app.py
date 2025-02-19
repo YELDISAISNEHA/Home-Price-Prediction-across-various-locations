@@ -17,7 +17,7 @@ def load_data():
     return pd.read_csv('banglore_data.csv') 
 
 df = load_data()
-st.title("House Price Prediction")
+st.title("Banglore House Price Prediction")
 
 location = st.selectbox("Select Location", df['location'].unique())
 
