@@ -40,7 +40,8 @@ if st.button("Predict Price"):
         input_data[loc] = 1 if loc == location else 0
 
     # Drop location column
-    input_data.drop("location", axis=1, inplace=True)
+    if "location" in input_data.columns:
+        input_data.drop("location", axis=1, inplace=True)
 
     # Ensure input_data has same feature order as model training
     input_data = input_data.reindex(columns=expected_columns, fill_value=0)
